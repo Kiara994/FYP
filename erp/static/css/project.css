@@ -1,0 +1,35 @@
+/* These styles are generated from project.scss. */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to right, #f9fcff, #e9f0ff);
+    color: #2d2d2d;
+  }
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6;
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+.navbar-custom {
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .nav-link {
+      transition: all 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #0d6efd !important;
+      font-weight: 500;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #0d6efd !important;
+    }
+    .container {
+      margin-top: 2rem;
+    }

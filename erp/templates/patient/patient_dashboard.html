@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section style="background-color: #f4f6f9; min-height: 100vh; padding: 60px 0;">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+        <h2 class="text-center mb-3" style="font-weight: 600; color: #333;">Welcome, {{ patient.name }}</h2>
+
+    <p class="text-center lead text-muted mb-2">Here’s everything you need to stay on top of your health!</p>
+
+<!-- Upcoming Appointments -->
+        <div class="card shadow-sm mb-4 border-0">
+          <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+            Upcoming Appointments
+          </div>
+          <div class="card-body">
+            {% with filtered_appointments=appointments|dictsort:"appointment_date" %}
+             <ul class="list-group list-group-flush">
+
+            {% for appointment in filtered_appointments %}
+                {% if appointment.current_status == "Scheduled" or appointment.current_status == "Rescheduled" %}
+                  <li class="list-group-item">
+                    <strong>{{ appointment.appointment_date }}</strong> – Dr. {{ appointment.doctor.name }}
+                    <span class="badge bg-info ms-2">{{ appointment.current_status }}</span>
+                  </li>
+                {% endif %}
+              {% empty %}
+                    <p class="text-muted">No upcoming appointments.</p>
+               {% endfor %}
+            {% endwith %}
+          </ul>
+        </div>
+      </div>
+
+
+            <!-- Recent Prescriptions -->
+        <div class="card shadow-sm mb-4 border-0">
+          <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+            Recent Prescriptions
+          </div>
+          <div class="card-body">
+              <ul class="list-group list-group-flush">
+                {% for prescription in prescriptions %}
+                  <li class="list-group-item">{{ prescription.prescription_date }} - {{ prescription.medication_name }}</li>
+
+              </ul>
+            {% empty %}
+              <p class="text-muted">No prescriptions found.</p>
+             {% endfor %}
+          </div>
+        </div>
+
+
+    <!-- Lab Tests (Only if not completed) -->
+     <div class="card shadow-sm mb-4 border-0">
+       <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+         Pending Lab Tests
+        </div>
+        <div class="card-body">
+           {% with pending_tests=lab_tests %}
+          <ul class="list-group list-group-flush">
+              {% for test in pending_tests %}
+                {% if test.status|lower != "completed" %}
+                  <li class="list-group-item">
+                    {{ test.test_name }} — {{ test.status }}
+                    <small class="text-muted">({{ test.test_date|date:"Y-m-d" }})</small>
+                    <small class="text-muted">({{ test.test_time }})</small>
+                  </li>
+                {% endif %}
+              {% empty %}
+                <p class=" text-muted">No pending lab tests</p>
+              {% endfor %}
+            {% endwith %}
+          </ul>
+        </div>
+      </div>
+
+
+    <!-- Billing & Payments (Only unpaid) -->
+      <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+          Pending Bills
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+              {% for bill in bills %}
+              {% if bill.status|lower != "paid" %}
+              <li class="list-group-item">
+                <strong>Rs. {{ bill.amount }}</strong> —
+                <span class="badge bg-danger">{{ bill.status }}</span>
+              </li>
+              {% endif %}
+            {% empty %}
+              <p class="text-muted">No pending bills</p>
+            {% endfor %}
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="text-center mt-4">
+    <div class="d-grid gap-3 d-md-flex justify-content-center">
+      <a href="{% url 'appointment:schedule_appointment_patient' %}" class="btn btn-primary text-white">
+        <i class="bi bi-calendar-plus me-1"></i> Schedule Appointment
+      </a>
+      <a href="{% url 'appointment:patient_appointment' patient.id %}" class="btn btn-primary text-white">
+        <i class="bi bi-calendar-week me-1"></i> My Appointments
+      </a>
+      <a href="{% url 'billing:patient_billing' patient.id %}" class="btn btn-primary text-white">
+        <i class="bi bi-cash-coin me-1"></i> My Bills
+      </a>
+      <a href="{% url 'patient:diagnosis_history' %}" class="btn btn-primary text-white">
+        <i class="bi bi-clipboard-heart me-1"></i> Diagnosis History
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Select Your Role</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>
+        <input type="radio" name="role" value="doctor"> Doctor
+    </label>
+    <label>
+        <input type="radio" name="role" value="patient"> Patient
+    </label>
+    <label>
+        <input type="radio" name="role" value="staff"> Staff
+    </label>
+    <button type="submit">Continue</button>
+</form>
+{% endblock content %}

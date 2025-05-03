@@ -1,0 +1,176 @@
+[
+    {
+        "model": "patient.patient",
+        "pk": 3,
+        "fields": {
+            "name": "Michael Johnson",
+            "age": 45,
+            "date_of_birth": "1979-08-25",
+            "gender": "M",
+            "contact_info": "+923009876543",
+            "emergency_contact_info": "+923114567123",
+            "blood_type": "B+",
+            "medical_history": "Hypertension, Diabetes",
+            "address": "67 Defense Phase 4, Islamabad",
+            "doctor_attending": 3,
+            "insurance_detail": 3
+        }
+    },
+    {
+        "model": "patient.patient",
+        "pk": 4,
+        "fields": {
+            "name": "Aisha Patel",
+            "age": 32,
+            "date_of_birth": "1992-07-10",
+            "gender": "F",
+            "contact_info": "+923221112233",
+            "emergency_contact_info": "+923331122344",
+            "blood_type": "AB-",
+            "medical_history": "Migraine",
+            "address": "12 Clifton Road, Karachi",
+            "doctor_attending": 4,
+            "insurance_detail": 4
+        }
+    },
+    {
+        "model": "doctor.doctor",
+        "pk": 3,
+        "fields": {
+            "name": "Dr. Robert Williams",
+            "speciality": "Neurology",
+            "contact_info": "+923111234567",
+            "gender": "M",
+            "availability": "8 AM - 3 PM",
+            "license_number": "DOC789123",
+            "department": 3,
+            "shift_timings": "Morning",
+            "salary": "250000.00",
+            "joining_date": "2012-04-20"
+        }
+    },
+    {
+        "model": "doctor.doctor",
+        "pk": 4,
+        "fields": {
+            "name": "Dr. Sophia Lee",
+            "speciality": "Endocrinology",
+            "contact_info": "+923444555666",
+            "gender": "F",
+            "availability": "10 AM - 6 PM",
+            "license_number": "DOC997654",
+            "department": 4,
+            "shift_timings": "Evening",
+            "salary": "220000.00",
+            "joining_date": "2016-11-05"
+        }
+    },
+    {
+        "model": "billing.insurance",
+        "pk": 3,
+        "fields": {
+            "patient": 3,
+            "provider_name": "PakMed Insurance",
+            "policy_number": "PMI56789",
+            "coverage_details": "Covers major surgeries and hospitalization",
+            "co_pay": "7000.00",
+            "deductible": "2500.00",
+            "policy_start_date": "2023-05-15",
+            "policy_end_date": "2024-05-15"
+        }
+    },
+    {
+        "model": "billing.insurance",
+        "pk": 4,
+        "fields": {
+            "patient": 4,
+            "provider_name": "Global Health Cover",
+            "policy_number": "GHC89012",
+            "coverage_details": "Full coverage including dental and vision",
+            "co_pay": "6000.00",
+            "deductible": "3000.00",
+            "policy_start_date": "2023-08-01",
+            "policy_end_date": "2024-08-01"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 3,
+        "fields": {
+            "patient": 3,
+            "doctor": 3,
+            "prescription_date": "2024-02-13",
+            "medication_name": "Amlodipine",
+            "medication_detail": "1 tablet daily for blood pressure",
+            "dosage": "5mg",
+            "refill_count": 4,
+            "prescription_till_date": "2024-06-13"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 4,
+        "fields": {
+            "patient": 4,
+            "doctor": 4,
+            "prescription_date": "2024-02-14",
+            "medication_name": "Sumatriptan",
+            "medication_detail": "Take when migraine starts, max 2 per day",
+            "dosage": "50mg",
+            "refill_count": 3,
+            "prescription_till_date": "2024-07-14"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 3,
+        "fields": {
+            "patient": 3,
+            "doctor": 3,
+            "technician": 3,
+            "test_name": "MRI Brain Scan",
+            "test_description": "Detect potential neurological issues",
+            "test_date": "2024-02-10 15:30:00",
+            "status": "Completed",
+            "results": "No abnormalities detected.",
+            "report_generated_date": "2024-02-10 19:00:00"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 4,
+        "fields": {
+            "patient": 4,
+            "doctor": 4,
+            "technician": 4,
+            "test_name": "Thyroid Function Test",
+            "test_description": "Measure thyroid hormone levels",
+            "test_date": "2024-02-11 09:45:00",
+            "status": "Pending",
+            "results": "",
+            "report_generated_date": null
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 3,
+        "fields": {
+            "patient": 3,
+            "doctor": 3,
+            "appointment_date": "2024-02-16",
+            "status": "Scheduled",
+            "appointment_type": "Neurology Consultation"
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 4,
+        "fields": {
+            "patient": 4,
+            "doctor": 4,
+            "appointment_date": "2024-02-18",
+            "status": "Scheduled",
+            "appointment_type": "Endocrinology Follow-up"
+        }
+    }
+]

@@ -1,0 +1,218 @@
+[
+    {
+        "model": "doctor.department",
+        "pk": 1,
+        "fields": {
+            "department_name": "Cardiology"
+        }
+    },
+    {
+        "model": "doctor.department",
+        "pk": 2,
+        "fields": {
+            "department_name": "Neurology"
+        }
+    },
+    {
+        "model": "doctor.department",
+        "pk": 3,
+        "fields": {
+            "department_name": "Orthopedics"
+        }
+    },
+    {
+        "model": "doctor.department",
+        "pk": 4,
+        "fields": {
+            "department_name": "Pediatrics"
+        }
+    },
+    {
+        "model": "doctor.diagnosis",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 3,
+            "diagnosis_date": "2025-02-20",
+            "diagnosis_detail": "Hypertension",
+            "tests_ordered": "Blood Pressure Monitoring",
+            "symptoms": "Headache, Fatigue, Dizziness"
+        }
+    },
+    {
+        "model": "doctor.diagnosis",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 3,
+            "diagnosis_date": "2025-02-22",
+            "diagnosis_detail": "Diabetes Type II",
+            "tests_ordered": "Fasting Blood Sugar Test",
+            "symptoms": "Increased thirst, Frequent urination, Fatigue"
+        }
+    },
+    {
+        "model": "doctor.diagnosis",
+        "pk": 3,
+        "fields": {
+            "patient": 3,
+            "doctor": 3,
+            "diagnosis_date": "2025-02-25",
+            "diagnosis_detail": "Migraine",
+            "tests_ordered": "Neurological Examination",
+            "symptoms": "Severe headache, Nausea, Sensitivity to light"
+        }
+    },
+    {
+        "model": "doctor.diagnosis",
+        "pk": 4,
+        "fields": {
+            "patient": 4,
+            "doctor": 5,
+            "diagnosis_date": "2025-02-27",
+            "diagnosis_detail": "Pneumonia",
+            "tests_ordered": "Chest X-ray, Blood test",
+            "symptoms": "Cough, Fever, Shortness of breath"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 5,
+            "prescription_date": "2025-02-21",
+            "medication_detail": "Lisinopril 10mg",
+            "dosage": "Take once daily",
+            "refill_count": 3,
+            "prescription_till_date": "2025-08-21",
+            "medication_name": "Lisinopril"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 4,
+            "prescription_date": "2025-02-23",
+            "medication_detail": "Metformin 500mg",
+            "dosage": "Take twice daily",
+            "refill_count": 5,
+            "prescription_till_date": "2025-12-23",
+            "medication_name": "Metformin"
+        }
+    },
+    {
+        "model": "billing.billing",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "amount": "500.00",
+            "due_date": "2025-03-01T10:00:00Z",
+            "status": "Pending",
+            "billing_date": "2025-02-28T10:00:00Z",
+            "payment_method": "Cash",
+            "insurance_coverage": "200.00",
+            "date_paid": null
+        }
+    },
+    {
+        "model": "billing.billing",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "amount": "1200.00",
+            "due_date": "2025-03-05T10:00:00Z",
+            "status": "Paid",
+            "billing_date": "2025-02-25T10:00:00Z",
+            "payment_method": "Credit Card",
+            "insurance_coverage": "500.00",
+            "date_paid": "2025-02-26T10:00:00Z"
+        }
+    },
+    {
+        "model": "billing.insurance",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "provider_name": "HealthSecure",
+            "policy_number": "HS-00123456",
+            "coverage_details": "Covers up to $10,000 per annum.",
+            "co_pay": "50.00",
+            "deductible": "200.00",
+            "policy_start_date": "2025-01-01",
+            "policy_end_date": "2026-01-01"
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 3,
+            "appointment_date": "2025-03-01",
+            "status": "Scheduled",
+            "appointment_type": "Routine Checkup"
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 4,
+            "appointment_date": "2025-03-02",
+            "status": "Scheduled",
+            "appointment_type": "Follow-Up"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 5,
+            "technician": 3,
+            "test_name": "Blood Test",
+            "test_description": "Complete blood count test.",
+            "test_date": "2025-02-28T10:30:00Z",
+            "status": "Completed",
+            "results": "Normal blood cell levels.",
+            "report_generated_date": "2025-02-28T12:00:00Z"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 3,
+            "technician": 4,
+            "test_name": "MRI Scan",
+            "test_description": "Brain MRI for neurological assessment.",
+            "test_date": "2025-03-01T14:00:00Z",
+            "status": "Pending",
+            "results": null,
+            "report_generated_date": null
+        }
+    },
+    {
+        "model": "lab.lab",
+        "pk": 1,
+        "fields": {
+            "lab_name": "Central Diagnostic Lab",
+            "description": "A state-of-the-art medical testing facility.",
+            "contact_number": "+923001234567"
+        }
+    },
+    {
+        "model": "lab.lab",
+        "pk": 2,
+        "fields": {
+            "lab_name": "Pathology Lab",
+            "description": "Specializing in pathology tests.",
+            "contact_number": "+923009876543"
+        }
+    }
+]

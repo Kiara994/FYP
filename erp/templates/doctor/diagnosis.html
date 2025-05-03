@@ -1,0 +1,184 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+    /* MAIN FORM CONTAINER */
+    .lab-test-form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* FORM TITLE */
+    .form-title {
+        margin-bottom: 2.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* FORM ROWS - PERFECTLY ALIGNED */
+    .form-group {
+        margin-bottom: 1.8rem; /* Consistent spacing */
+    }
+
+    /* LABELS - PURE BLACK WITH PROPER SPACING */
+    .form-label {
+
+        color: #000000;
+        font-size: 1rem;
+    }
+
+    /* INPUT FIELDS - CONSISTENT STYLING */
+    .form-control {
+        width: 100%;
+        padding: 0.85rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+    }
+
+
+    /* SUBMIT BUTTON */
+    .submit-btn {
+        width: 100%;
+        padding: 0.85rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 2rem;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #2980b9;
+    }
+
+    /* ERROR MESSAGES */
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lab-test-form mt-1 ms-2">
+    <h3 class="form-title">Doctor Diagnosis</h3><br>
+    <form method="POST">
+        {% csrf_token %}
+
+              <!-- Patient Field -->
+        <div class="form-row mb-3" style="clear: both;">
+                <label class="form-label" style="color: #000000; margin-right: 10px;" for="id_patient"><b>Patient</b></label>
+                {{ form.patient }}
+            </div>
+
+            <div class="form-row mb-3" style="clear: both;">>
+                <label for="id_gender" class="form-label" style="color: #000000; margin-right: 10px;"><b>Gender</b></label>
+                {{ form.gender }}
+            </div>
+
+             <div class="form-row mb-3" style="clear: both;">>
+                <label for="id_age" class="form-label" style="color: #000000; margin-right: 10px;"><b>Age</b></label>
+                {{ form.age }}
+            </div>
+
+           <div class="form-row mb-3" style="clear: both;">
+             <label for="id_blood_pressure" class="form-label" style="color: #000000; margin-right: 10px;"><b>Blood Pressure</b></label>
+                    {{ form.blood_pressure }}
+            </div>
+
+             <div class="form-row mb-3" style="clear: both;">
+               <label for="id_cholesterol_level" class="form-label" style="color: #000000; margin-right: 10px;"><b>Cholesterol Level</b></label>
+                {{ form.cholesterol_level }}
+            </div>
+            <div class="form-row mb-3" style="clear: both;">
+              <label class="form-label" style="color: #000000; margin-right: 10px;" for="id_symptoms" ><b>Symptoms</b></label>
+                {{ form.symptoms }}
+            </div>
+
+
+            <div class="col-md-12 mt-3">
+                <div class="form-row mt-3" style="clear: both;">
+                  <label class="form-label"  style="color: #000000; margin-right: 10px;" for="{{ form.symptoms.id_for_label }}">
+                      <b>Do you have any of these symptoms?  </b>
+                  </label>
+                  <div class="d-flex gap-3">
+                    <!-- Fever section-->
+                    <label class="form-check"  style="color: #000000; margin-right: 10px;" for="{{ form.fever.id_for_label }}">
+                      <b>Fever  </b>
+                    </label>
+                    <div>{{ form.fever }}</div>
+                  <!-- div class="form-check">
+                        {{ form.fever }}
+                        <label class="form-check-label" for="id_fever">Fever</label>
+                    </div>-->
+
+
+                    <!--Cough section-->
+                    <label class="form-check"  style="color: #000000; margin-right: 10px;" for="{{ form.cough.id_for_label }}">
+                      <b>Cough  </b>
+                    </label>
+                    <div>{{ form.cough }}</div>
+                   <!-- <div class="form-check">
+                        {{ form.cough }}
+                        <label class="form-check-label" for="id_cough">Cough</label>
+                    </div>-->
+
+                    <!--Fatigue Section-->
+
+                    <label class="form-check"  style="color: #000000; margin-right: 10px;" for="{{ form.fatigue.id_for_label }}">
+                      <b>Fatigue </b>
+                    </label>
+                    <div>{{ form.fatigue }}</div>
+
+                    <!--<div class="form-check">
+                        {{ form.fatigue }}
+                        <label class="form-check-label" for="id_fatigue">Fatigue</label>
+                    </div>-->
+
+                    <!-- Difficulty Breathing section-->
+                    <label class="form-check"  style="color: #000000; margin-right: 10px;" for="{{ form.difficulty_breathing.id_for_label }}">
+                      <b>Difficulty Breathing  </b>
+                    </label>
+                    <div>{{ form.difficulty_breathing }}</div>
+
+                     <!-- <div class="form-check">
+                        {{ form.difficulty_breathing }}
+                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Diagnose</button>
+        </div>
+    </form>
+</div>
+    {% if form.ai_prediction.value %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ form.ai_prediction.value }}</strong></p>
+    </div>
+    {% endif %}
+
+</div>
+{{ form.media }}
+{% endblock %}

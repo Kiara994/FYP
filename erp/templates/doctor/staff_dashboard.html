@@ -1,0 +1,160 @@
+{% extends "../base.html" %}
+{% block extra_css %}
+<style>
+    /* Buttons Styling */
+    .btn-container {
+        margin-top: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #3498db !important;
+        color: white !important;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9 !important;
+    }
+
+    .no-appointments {
+        text-align: center !important;
+        margin-top: 3rem;
+        font-style: italic;
+        color: #999;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="appointments-container" style="border: 2px solid #e0e0e0 !important;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+        <h3 class="page-title" style="
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e0e0e0;
+            color: #2c3e50;">
+            Welcome, {{ staff.name }}
+        </h3>
+
+        {% if staff.role == "Receptionist" %}
+            <div class="btn-container mb-3">
+                <a href="{% url 'billing:bill' %}" class="btn btn-primary text-white" style="color; #ffffff;">
+                  Create New Bill</a>
+            </div>
+        {% elif staff.role == "Technician" %}
+            <div class="btn-container mb-3">
+                <a href="{% url 'lab:labtest' %}" class="btn btn-primary text-white" style="text-color; #ffffff;">
+                  Create New Lab Test</a>
+            </div>
+        {% endif %}
+
+    </div> <!-- close appointments-container -->
+</div> <!-- close d-flex -->
+
+<!-- This is now outside the container -->
+
+{% if staff.role == "Technician" %}
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header fw-semibold" style="background-color: #1976D2; text-align: center;">
+            <h4 class="text-white">Pending Lab Test Results</h4>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light" style="text-align: center;">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Test</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for test in lab_tests %}
+                        {% if not test.results and not test.report %}
+                        <tr>
+                            <td>{{ test.patient }}</td>
+                            <td>{{ test.test_name }}</td>
+                            <td><span class="badge bg-secondary">{{ test.status }}</span></td>
+                            <td>
+                                <a href="{% url 'lab:update_labtest_result' test.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i> Update Result
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No pending lab tests.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+{% endblock content %}
+
+
+<!--<div class="container py-4">
+    <h2 class="mb-4">Welcome, {{ staff.name }}</h2>
+
+    {% if staff.role == "Receptionist" %}
+        <a href="{% url 'billing:bill' %}" class="btn btn-danger mb-3">
+            <i class="bi bi-receipt"></i> Create New Bill
+        </a>
+
+    {% elif staff.role == "Technician" %}
+        <a href="{% url 'lab:labtest' %}" class="btn btn-warning text-dark mb-4">
+            <i class="bi bi-plus-circle"></i> Create New Lab Test
+        </a>-->
+        <!-- Table of Only Incomplete Lab Tests -->
+<!--        <h4 class="mb-3">Pending Lab Test Results</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Test</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for test in lab_tests %}
+                        {% if not test.results and not test.report %}
+                        <tr>
+                            <td>{{ test.patient }}</td>
+                            <td>{{ test.test_name }}</td>
+                            <td>
+                                <span class="badge bg-secondary">{{ test.status }}</span>
+                            </td>
+                            <td>
+                                <a href="{% url 'lab:update_labtest_result' test.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i> Update Result
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No pending lab tests.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+-->

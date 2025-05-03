@@ -1,0 +1,89 @@
+[
+    {
+        "model": "patient.patient",
+        "pk": 2,
+        "fields": {
+            "name": "Ali Hassan",
+            "age": 40,
+            "date_of_birth": "1984-07-22",
+            "gender": "M",
+            "contact_info": "+923335551234",
+            "emergency_contact_info": "+923447771234",
+            "blood_type": "B+",
+            "medical_history": "Hypertension",
+            "address": "56 Gulberg Street, Islamabad",
+            "doctor_attending": 1,
+            "insurance_detail": 1
+        }
+    },
+    {
+        "model": "doctor.doctor",
+        "pk": 2,
+        "fields": {
+            "name": "Dr. Fatima Noor",
+            "speciality": "Neurology",
+            "contact_info": "+923125557890",
+            "gender": "F",
+            "availability": "8 AM - 2 PM",
+            "license_number": "DOC987654",
+            "department": 1,
+            "shift_timings": "Morning",
+            "salary": "220000.00",
+            "joining_date": "2017-04-15"
+        }
+    },
+    {
+        "model": "billing.insurance",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "provider_name": "DEF Health Insurance",
+            "policy_number": "LMN789",
+            "coverage_details": "Covers dental and surgical treatments.",
+            "co_pay": "4000.00",
+            "deductible": "2500.00",
+            "policy_start_date": "2023-05-05",
+            "policy_end_date": "2024-05-05"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 2,
+            "prescription_date": "2024-02-14",
+            "medication_name": "Metformin",
+            "medication_detail": "Take 1 tablet twice daily",
+            "dosage": "850mg",
+            "refill_count": 1,
+            "prescription_till_date": "2024-03-14"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 2,
+            "technician": 1,
+            "test_name": "MRI Scan",
+            "test_description": "Brain MRI for neurological analysis",
+            "test_date": "2024-02-10 09:30:00",
+            "status": "Pending",
+            "results": "",
+            "report_generated_date": null
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 2,
+        "fields": {
+            "patient": 2,
+            "doctor": 2,
+            "appointment_date": "2024-02-18",
+            "status": "Scheduled",
+            "appointment_type": "Neurological Consultation"
+        }
+    }
+]

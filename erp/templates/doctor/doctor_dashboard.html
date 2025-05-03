@@ -1,0 +1,81 @@
+{% extends "../base.html" %}
+{% load static %}
+
+<link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
+
+{% block content %}
+<section style="background-color: #f4f6f9; min-height: 100vh; padding: 60px 0;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+<!--<div class="container py-5">
+  <div class="text-center mb-5">-->
+    <h2  class="text-center mb-3" style="font-weight: 600; color: #333;">
+      Welcome, Dr. {{ doctor.name }}</h2>
+    <p class="text-center lead text-muted mb-2">Here is  your weekly work outline.</p>
+
+
+  <!--  <div class="row g-4 section-container">-->
+
+    <!-- Upcoming Appointments -->
+      <div class="card shadow-sm mb-4 border-0">
+          <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+           Upcoming Appointments
+          </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            {% for appointment in appointments %}
+              {% if appointment.current_status == "Scheduled" or appointment.current_status == "Rescheduled" %}
+              <li class="list-group-item">
+                <strong>{{ appointment.appointment_date }}</strong> – {{ appointment.patient.name }}
+                <span class="badge bg-info ms-2">{{ appointment.current_status }}</span>
+              </li>
+              {% endif %}
+            {% empty %}
+              <li class="list-group-item text-muted">No upcoming appointments.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    <!-- Recent Prescriptions -->
+    <div class="card shadow-sm mb-4 border-0">
+          <div class="card-header text-white fw-semibold" style="background-color: #1976D2;">
+            Recent Prescriptions
+          </div>
+      <div class="card-body">
+          <ul class="list-group list-group-flush">
+            {% for prescription in prescriptions %}
+              <li class="list-group-item">
+                {{ prescription.prescription_date }} – {{ prescription.patient.name }}
+                <small class="text-muted">({{ prescription.medication_name }})</small>
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">No recent prescriptions.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+  <!-- Action Buttons -->
+  <div class="text-center mt-5">
+    <div class="d-grid gap-3 d-md-flex justify-content-center">
+      <a href="{% url 'appointment:schedule_appointment_doctor' %}" class="btn btn-primary btn-modern text-white">
+        <i class="bi bi-calendar-plus me-1"></i> Schedule Appointment
+      </a>
+      <a href="{% url 'appointment:doctor_appointment' doctor.id %}" class="btn btn-outline-secondary btn-modern text-white">
+        <i class="bi bi-calendar-week me-1"></i> Check Appointments
+      </a>
+      <a href="{% url 'doctor:prescribe_prescription' doctor.id %}" class="btn btn-outline-success btn-modern text-white">
+        <i class="bi bi-prescription2 me-1"></i> Prescribe
+      </a>
+      <a href="{% url 'doctor:doctor_diagnosis' doctor.id %}" class="btn btn-outline-info btn-modern text-white">
+        <i class="bi bi-clipboard-pulse me-1"></i> Diagnosis
+      </a>
+      </div>
+    </div>
+   </div>
+</div>
+</section>
+{% endblock %}

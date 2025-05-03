@@ -1,0 +1,173 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+   .lab-test-form {
+        max-width: 600px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 3rem;
+        display: block;
+        width: 100%;
+    }
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .required-asterisk {
+        color: #e74c3c;
+    }
+
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lab-test-form mt-2 ms-2">
+    <h2 class="form-title">Lab Test Registration</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Patient Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.patient.id_for_label }}">
+              <b>Patient </b>
+            </label>
+            {{ form.patient }}
+            {% if form.patient.errors %}
+                <div class="error-message">{{ form.patient.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Doctor Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.doctor.id_for_label }}">
+                <b>Doctor</b>
+            </label>
+            {{ form.doctor }}
+            {% if form.doctor.errors %}
+                <div class="error-message">{{ form.doctor.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Technician Field -->
+<!--        <div class="form-row mb-3" style="clear: both;">-->
+<!--            <label class="form-label" style="color: #000000;" for="{{ form.technician.id_for_label }}">-->
+<!--                <b>Technician</b>-->
+<!--            </label>-->
+<!--            {{ form.technician }}-->
+<!--            {% if form.technician.errors %}-->
+<!--                <div class="error-message">{{ form.technician.errors }}</div>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+
+        <!-- Test Name Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.test_name.id_for_label }}">
+                <b>Test Name</b>
+            </label>
+            {{ form.test_name }}
+            {% if form.test_name.errors %}
+                <div class="error-message">{{ form.test_name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Test Description Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.test_description.id_for_label }}">
+              <b>Test Description </b>
+            </label>
+            {{ form.test_description }}
+            {% if form.test_description.errors %}
+                <div class="error-message">{{ form.test_description.errors }}</div>
+            {% endif %}
+        </div>
+
+       <!-- Test Date Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.test_date.id_for_label }}">
+              <b>Test Date </b>
+            </label>
+            {{ form.test_date}}
+            {% if form.test_date.errors %}
+                <div class="error-message">{{ form.test_date.errors }}</div>
+            {% endif %}
+        </div>
+
+       <!-- Test Time Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.test_time.id_for_label }}">
+              <b>Test Time </b>
+            </label>
+            {{ form.test_time }}
+            {% if form.test_time.errors %}
+                <div class="error-message">{{ form.test_time.errors }}</div>
+            {% endif %}
+        </div>
+
+      <div style="margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary">Create Lab Test</button>
+      </div>
+    </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form-control class to all inputs, selects, and textareas
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach(element => {
+        if (element.type !== 'submit') {
+            element.classList.add('form-control');
+        }
+    });
+});
+</script>
+{{ form.media }}
+{% endblock %}

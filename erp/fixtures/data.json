@@ -1,0 +1,144 @@
+[
+    {
+        "model": "patient.patient",
+        "pk": 1,
+        "fields": {
+            "name": "John Doe",
+            "date_of_birth": "1990-05-15",
+            "age": 34,  
+            "gender": "M",
+            "contact_info": "+923001234567",
+            "emergency_contact_info": "+923004567890",
+            "blood_type": "O+",
+            "medical_history": "No known allergies.",
+            "address": "123 Main Street, Lahore",
+            "doctor_attending": 1,
+            "insurance_detail": 1
+        }
+    },
+    {
+        "model": "doctor.doctor",
+        "pk": 1,
+        "fields": {
+            "name": "Dr. Alice Smith",
+            "speciality": "Cardiology",
+            "contact_info": "+923008765432",
+            "gender": "F",
+            "availability": "9 AM - 5 PM",
+            "license_number": "DOC123456",
+            "department": "Cardiology",
+            "joining_date": "2022-06-15",  
+            "shift_timings": "Morning",
+            "salary": "200000.00"
+        }
+    },
+    {
+        "model": "billing.insurance",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "provider_name": "ABC Health Insurance",
+            "policy_number": "XYZ123",
+            "coverage_details": "Covers outpatient and inpatient treatments.",
+            "co_pay": "5000.00",
+            "deductible": "2000.00",
+            "policy_start_date": "2023-01-01",
+            "policy_end_date": "2024-01-01"
+        }
+    },
+    {
+        "model": "doctor.diagnosis",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 1,
+            "diagnosis_date": "2024-02-10",
+            "diagnosis_detail": "Flu with mild fever",
+            "tests_ordered": "Blood Test, X-Ray",
+            "symptoms": "Fever, cough, sore throat"
+        }
+    },
+    {
+        "model": "doctor.prescription",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 1,
+            "prescription_date": "2024-02-11",
+            "medication_name": "Paracetamol",  
+            "medication_detail": "Take 1 tablet every 6 hours",
+            "dosage": "500mg",
+            "refill_count": 2,
+            "prescription_till_date": "2024-03-10"
+        }
+    },
+    {
+        "model": "doctor.department",
+        "pk": 1,
+        "fields": {
+            "department_name": "Cardiology"
+        }
+    },
+    {
+        "model": "doctor.staff",
+        "pk": 1,
+        "fields": {
+            "name": "Jane Doe",
+            "role": "Nurse",
+            "contact_info": "+923111234567",
+            "department": 1,
+            "shift_timings": "Night",
+            "date_hired": "2023-05-20",
+            "salary": "100000.00"
+        }
+    },
+    {
+        "model": "billing.billing",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "amount": "5000.00",
+            "billing_date": "2024-02-09",
+            "due_date": "2024-03-10",
+            "status": "Pending",
+            "payment_method": "Credit Card",
+            "insurance_coverage": "2000.00",
+            "date_paid": null
+        }
+    },
+    {
+        "model": "lab.lab",
+        "pk": 1,
+        "fields": {
+            "lab_name": "ABC Medical Labs",
+            "description": "A diagnostic laboratory for various medical tests.",
+            "contact_number": "+923221112233"
+        }
+    },
+    {
+        "model": "lab.labtest",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 1,
+            "technician": 1,
+            "test_name": "Blood Test",
+            "test_description": "Checking blood sugar levels",
+            "test_date": "2024-02-08 10:00:00",
+            "status": "Completed",
+            "results": "Normal blood sugar levels.",
+            "report_generated_date": "2024-02-08 14:00:00"
+        }
+    },
+    {
+        "model": "appointment.appointment",
+        "pk": 1,
+        "fields": {
+            "patient": 1,
+            "doctor": 1,
+            "appointment_date": "2024-02-12",
+            "status": "Scheduled",
+            "appointment_type": "Routine Checkup"
+        }
+    }
+]

@@ -1,0 +1,49 @@
+  .dashboard-card {
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .dashboard-card .card-header {
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 1rem 1.5rem;
+  }
+
+  .btn-modern {
+    border-radius: 30px;
+    padding: 0.75rem 1.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.3s ease;
+  }
+
+  .btn-modern:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .list-group-item {
+    background: transparent;
+    border: none;
+  }
+
+  .section-container {
+    margin-bottom: 2.5rem;
+  }

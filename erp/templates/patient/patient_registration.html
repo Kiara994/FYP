@@ -1,0 +1,242 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+  /* ABSOLUTE CENTERING */
+    .center-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa; /* Optional background */
+    position: fixed !important;
+    z-index: 9999 !important;
+    }
+        .patient-form {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: relative !important;
+        z-index: 10000 !important;
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #000000; /* Pure black for field headings */
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    select.form-control {
+        height: calc(2.25rem + 2px);
+    }
+
+     .btn-primary-custom {
+        display: block;
+        width: 100%;
+        padding: 12px 24px;
+        background-color: #007bff; /* Primary blue */
+        color: white !important; /* White text */
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary-custom:hover {
+        background-color: #0069d9; /* Darker blue on hover */
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary-custom:active {
+        background-color: #0062cc;
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .required-asterisk {
+        color: #e74c3c;
+    }
+
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="center-wrapper mt-1 ms-2">
+<div class="patient-form">
+    <h1 class="form-title">Patient Registration</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Name Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.name.id_for_label }}">
+                <b>Full Name</b>
+            </label>
+          <div>{{ form.name }}</div>
+            {% if form.name.errors %}
+                <div class="error-message">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Date of Birth Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.date_of_birth.id_for_label }}">
+                <b>Date of Birth</b>
+            </label>
+            {{ form.date_of_birth }}
+            {% if form.date_of_birth.errors %}
+                <div class="error-message">{{ form.date_of_birth.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Gender Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.gender.id_for_label }}">
+                <b>Gender</b>
+            </label>
+          <div>{{ form.gender }}</div>
+            {% if form.gender.errors %}
+                <div class="error-message">{{ form.gender.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Contact Info Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.contact_info.id_for_label }}">
+                <b>Contact Number</b>
+            </label>
+            {{ form.contact_info }}
+            {% if form.contact_info.errors %}
+                <div class="error-message">{{ form.contact_info.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Emergency Contact Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.emergency_contact_info.id_for_label }}">
+                <b>Emergency Contact</b>
+            </label>
+            {{ form.emergency_contact_info }}
+            {% if form.emergency_contact_info.errors %}
+                <div class="error-message">{{ form.emergency_contact_info.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Blood Type Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.blood_type.id_for_label }}">
+                <b>Blood Type</b>
+            </label>
+          <div>{{ form.blood_type }}</div>
+            {% if form.blood_type.errors %}
+                <div class="error-message">{{ form.blood_type.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Medical History Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.medical_history.id_for_label }}">
+                <b>Medical History</b>
+            </label>
+            {{ form.medical_history }}
+            {% if form.medical_history.errors %}
+                <div class="error-message">{{ form.medical_history.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.address.id_for_label }}">
+              <b> Address </b>
+            </label>
+            {{ form.address }}
+            {% if form.address.errors %}
+                <div class="error-message">{{ form.address.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Doctor Attending Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000;" for="{{ form.doctor_attending.id_for_label }}">
+              <b>  Attending Doctor</b>
+            </label>
+          <div>{{ form.doctor_attending }}</div>
+            {% if form.doctor_attending.errors %}
+                <div class="error-message">{{ form.doctor_attending.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Insurance Details Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label"  style="color: #000000;" for="{{ form.insurance_detail.id_for_label }}">
+               <b> Insurance Details</b>
+            </label>
+          <div>{{ form.insurance_detail }}</div>
+            {% if form.insurance_detail.errors %}
+                <div class="error-message">{{ form.insurance_detail.errors }}</div>
+            {% endif %}
+        </div>
+
+
+        <div class="form-group" style="margin-top: 2rem; clear: both;">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form-control class to all inputs, selects, and textareas
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach(element => {
+        if (element.type !== 'submit') {
+            element.classList.add('form-control');
+        }
+    });
+
+    // Set date input type for date fields
+    document.getElementById('id_date_of_birth').type = 'date';
+});
+</script>
+{% endblock %}

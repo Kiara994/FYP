@@ -1,0 +1,196 @@
+{% extends "../base.html" %}
+
+{% block extra_css %}
+<style>
+    /* Override any inherited text alignment */
+    .appointments-container * {
+        text-align: center !important;
+    }
+
+    .appointments-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;        /* Center horizontally */
+        justify-content: center;    /* Center vertically */
+        padding: 2rem;
+        min-height: 100vh;          /* Full height for vertical centering */
+        width: 100%;
+    }
+
+    .appointments-container h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #000000 !important;   /* Force black */
+        font-weight: 700 !important; /* Force bold */
+    }
+
+    .appointments-container .page-title {
+        text-align: center !important;
+        margin-top: 2rem;
+        margin-bottom: 2.5rem;
+        font-size: 2rem;
+        color: #000000 !important;   /* Force black */
+        font-weight: 700 !important; /* Force bold */
+    }
+
+    .appointments-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .appointments-container li {
+        background: #f9f9f9;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .appointments-container button a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .appointments-container button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin-top: 1rem;
+        cursor: pointer;
+    }
+
+    .appointments-container button:hover {
+        background-color: #2980b9;
+    }
+
+    .appointments-container .appointment-card {
+        background: #ffffff !important;
+        border: 2px solid #ccc !important; /* Visible border for each card */
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        width: 90%;
+        max-width: 800px;
+        margin: 0 auto !important;   /* Center horizontally */
+        display: flex;
+        flex-direction: column;
+        align-items: center !important; /* Center children */
+        justify-content: center !important; /* Center vertically */
+    }
+
+    .appointment-card div {
+        display: flex;
+        flex-direction: column;     /* Stack label and box */
+        align-items: center !important; /* Center horizontally */
+        width: 100%;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .field-label {
+        display: block !important;
+        width: auto;                /* Remove fixed width */
+        text-align: center !important;
+        font-weight: 700 !important; /* Bold */
+        color: #000000 !important;   /* Black */
+        margin-bottom: 0.5rem;       /* Gap before value */
+    }
+
+    .field-box {
+        display: block !important;
+        padding: 0.4rem 0.8rem;
+        background-color: #f4f6f8;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin: 0 auto !important;  /* Center horizontally */
+        text-align: center !important;
+    }
+
+    /* Buttons Styling */
+    .btn-container {
+        margin-top: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #3498db !important;
+        color: white !important;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9 !important;
+    }
+
+    .no-appointments {
+        text-align: center !important;
+        margin-top: 3rem;
+        font-style: italic;
+        color: #999;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="appointments-container" style=" border: 2px solid #e0e0e0 !important;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+        <h3 class="page-title"  style="
+        margin: 0 0 1rem 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+        color: #2c3e50;" >Pay Bill</h3>
+
+                <div class="appointment-card">
+                    <div>
+                        <span class="field-label" style="color: #000000;"><b>Patient:</b></span><br>
+                        <span class="field-box">{{ bill.patient.name }}</span>
+                    </div>
+                    <div>
+                        <span class="field-label" style="color: #000000;"><b>Amount Due:</b></span><br>
+                        <span class="field-box">{{ bill.amount }}</span>
+                    </div>
+                    <div>
+                        <span class="field-label" style="color: #000000;"><b>Billing Date:</b></span><br>
+                        <span class="field-box">{{ bill.billing_date }}</span>
+                    </div>
+                    <div>
+                      <span class="field-label" style="color: #000000;"><b>Due Date:</b></span><br>
+                        <span class="field-box">{{ bill.due_date }}</span>
+                    </div>
+                    <div>
+                      <span class="field-label" style="color: #000000;"><b>Insurance Coverage:</b></span><br>
+                        <span class="field-box">{{ bill.insurance_coverage }}</span>
+                    </div>
+
+                    {% if bill.status == "Paid" %}
+                        <p style="color: green;"><strong>This bill is already paid.</strong></p>
+                    {% else %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Submit Payment</button>
+                        </form>
+                    {% endif %}
+
+         <div class="btn-container mt-3">
+       <a href="{% url 'patient:dashboard' %}" class="btn btn-primary" style="color: #FFFFFF;">Back to Dashboard</a>
+       </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

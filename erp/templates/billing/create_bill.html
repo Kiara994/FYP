@@ -1,0 +1,142 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+   .lab-test-form {
+        max-width: 600px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 3rem;
+        display: block;
+        width: 100%;
+    }
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lab-test-form mt-2 ms-2">
+    <h2 class="form-title">Enter Your Information</h2><br>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Patient Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label"  style="color: #000000; margin-right: 10px;" for="{{ form.patient.id_for_label }}">
+                <b>Patient</b>
+            </label>
+          <div>{{ form.patient }}</div>
+            {% if form.patient.errors %}
+                <div class="error-message">{{ form.patient.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Amount Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.amount_for_label }}">
+               <b>Amount</b>
+            </label>
+            {{ form.amount }}
+            {% if form.amount.errors %}
+                <div class="error-message">{{ form.amount.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Due Date Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.due_date.id_for_label }}">
+                <b>Due Date</b>
+            </label>
+            {{ form.due_date }}
+            {% if form.due_date.errors %}
+                <div class="error-message">{{ form.due_date.errors }}</div>
+            {% endif %}
+        </div><br>
+
+        <!-- Bill Type Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.bill_type.id_for_label }}">
+                <b>Bill Type</b>
+            </label>
+          <div>{{ form.bill_type }}</div>
+            {% if form.bill_type.errors %}
+                <div class="error-message">{{ form.bill_type.errors }}</div>
+            {% endif %}
+        </div>
+
+      <div style="margin-top: 1rem; clear: both;">
+        <button type="submit" class="btn btn-primary">Confirm Bill</button>
+      </div>
+    </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form-control class to all inputs, selects, and textareas
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach(element => {
+        if (element.type !== 'submit') {
+            element.classList.add('form-control');
+        }
+    });
+});
+</script>
+{{ form.media }}
+{% endblock %}
+
+
+
+
+
+

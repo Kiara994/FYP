@@ -1,0 +1,184 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+   .lab-test-form {
+        max-width: 600px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 3rem;
+        display: block;
+        width: 100%;
+    }
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+   .select2-container--default .select2-selection--single {
+    height: 42px; /* matches Bootstrap input */
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+}
+
+/* Let it fill the available width nicely */
+.select2-container {
+    width: 100% !important;
+}
+  .select2-selection {
+    width: 100% !important;
+}
+  /* Hide the native select element */
+    .select2-hidden-accessible {
+        border: 0 !important;
+        clip: rect(0 0 0 0) !important;
+        height: 1px !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        position: absolute !important;
+        width: 1px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lab-test-form mt-2 ms-2">
+    <h2 class="form-title">Prescribe Prescription</h2><br>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Patient Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label"  style="color: #000000; margin-right: 10px;" for="{{ form.patient.id_for_label }}">
+              <b>  Patient</b>
+            </label>
+          <div>{{ form.patient }}</div>
+            {% if form.patient.errors %}
+                <div class="error-message">{{ form.patient.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Prescription Date Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.prescription_till_date_for_label }}">
+                <b>Prescription Till Date</b>
+            </label>
+            {{ form.prescription_till_date }}
+            {% if form.prescription_till_date.errors %}
+                <div class="error-message">{{ form.prescription_till_date.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Refill Count Field -->
+        <div class="form-row " style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.refill_count_for_label }}">
+                <b>Refill Count</b>
+            </label>
+            {{ form.refill_count }}
+            {% if form.refill_count.errors %}
+                <div class="error-message">{{ form.refill_count.errors }}</div>
+            {% endif %}
+        </div><br>
+
+        <!-- Dosage Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.dosage_for_label }}">
+               <b>Dosage</b>
+            </label>
+            {{ form.dosage }}
+            {% if form.dosage.errors %}
+                <div class="error-message">{{ form.dosage.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Medication name Field -->
+        <div class="form-row mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.medication_name_for_label }}">
+              <b>Medication Name</b>
+            </label>
+            {{ form.medication_name }}
+            {% if form.medication_name.errors %}
+                <div class="error-message">{{ form.medication_name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Medication Detail Field -->
+        <div class="form-row" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.medication_detail_for_label }}">
+               <b>Medication Detail</b>
+            </label>
+            {{ form.medication_detail }}
+            {% if form.medication_detail.errors %}
+                <div class="error-message">{{ form.medication_detail.errors }}</div>
+            {% endif %}
+        </div>
+
+      <div style="margin-top: 1rem; clear: both;">
+        <button type="submit" class="btn btn-primary">Confirm Prescription</button>
+      </div>
+    </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form-control class to all inputs, selects, and textareas
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach(element => {
+        if (element.type !== 'submit') {
+            element.classList.add('form-control');
+        }
+    });
+});
+</script>
+{{ form.media }}
+{% endblock %}
+

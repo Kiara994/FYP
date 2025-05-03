@@ -1,0 +1,643 @@
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Please insert your information to register</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;            <form method="POST">&ndash;&gt;-->
+<!--&lt;!&ndash;                {{ form.as_p}}&ndash;&gt;-->
+<!--&lt;!&ndash;                {% csrf_token %}&ndash;&gt;-->
+<!--&lt;!&ndash;                <input type="submit" value="Confirm Diagnosis">&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+
+<!--    <label for="patient">Patient:</label>-->
+<!--    {{ form.patient }}-->
+
+<!--    <label for="symptoms">Symptoms:</label>-->
+<!--    {{ form.symptoms }}-->
+
+<!--    <button type="button" id="predict-btn">AI Predict</button>-->
+
+<!--    <label for="ai_prediction">AI Prediction:</label>-->
+<!--    <input type="text" id="ai_prediction" name="ai_prediction" readonly>-->
+
+<!--    <label for="diagnosis">Doctor’s Final Diagnosis:</label>-->
+<!--    {{ form.diagnosis_detail }}-->
+<!--    <label for="tests_ordered">Tests Required:</label>-->
+<!--    {{ form.tests_ordered}}-->
+
+<!--    <button type="submit">Submit Diagnosis</button>-->
+<!--</form>-->
+
+
+<!--<script>-->
+<!--    document.getElementById("predict-btn").addEventListener("click", function() {-->
+<!--        let symptomsInput = document.getElementById("id_symptoms"); // Ensure this ID matches your form field-->
+<!--        let symptoms = symptomsInput ? symptomsInput.value.trim() : "";-->
+
+<!--        if (!symptoms) {-->
+<!--            alert("Please enter symptoms before predicting.");-->
+<!--            return;-->
+<!--        }-->
+
+<!--        fetch("{% url 'doctor:ai_predict' %}", {-->
+<!--            method: "POST",-->
+<!--            headers: {-->
+<!--                "Content-Type": "application/json",-->
+<!--                "X-CSRFToken": "{{ csrf_token }}"-->
+<!--            },-->
+<!--            body: JSON.stringify({ "symptoms": symptoms })-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            if (data.error) {-->
+<!--                alert("Error: " + data.error);-->
+<!--            } else {-->
+<!--                document.getElementById("ai_prediction").value = data.prediction;-->
+<!--            }-->
+<!--        })-->
+<!--        .catch(error => console.error("Error:", error));-->
+<!--    });-->
+<!--</script>-->
+
+
+
+
+
+
+
+
+
+<!--<div class="container mt-4">-->
+<!--    <h2 class="mb-3">Doctor Diagnosis</h2>-->
+
+<!--    <form method="POST" class="card p-4 shadow-sm">-->
+<!--        {% csrf_token %}-->
+
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <label for="id_patient" class="form-label">Patient</label>-->
+<!--                {{ form.patient }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6">-->
+<!--                <label for="id_gender" class="form-label">Gender</label>-->
+<!--                {{ form.gender }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 mt-3">-->
+<!--                <label for="id_age" class="form-label">Age</label>-->
+<!--                {{ form.age }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 mt-3">-->
+<!--                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>-->
+<!--                {{ form.blood_pressure }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 mt-3">-->
+<!--                <label for="id_cholesterol_level" class="form-label">Cholesterol Level</label>-->
+<!--                {{ form.cholesterol_level }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 mt-3">-->
+<!--                <label for="id_symptoms" class="form-label">Symptoms</label>-->
+<!--                {{ form.symptoms }}-->
+<!--            </div>-->
+
+<!--            <div class="col-md-12 mt-3">-->
+<!--                <label class="form-label">Do you have any of these symptoms?</label>-->
+<!--                <div class="d-flex gap-3">-->
+<!--                    <div class="form-check">-->
+<!--                        {{ form.fever }}-->
+<!--                        <label class="form-check-label" for="id_fever">Fever</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        {{ form.cough }}-->
+<!--                        <label class="form-check-label" for="id_cough">Cough</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        {{ form.fatigue }}-->
+<!--                        <label class="form-check-label" for="id_fatigue">Fatigue</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        {{ form.difficulty_breathing }}-->
+<!--                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="mt-4">-->
+<!--            <button type="submit" class="btn btn-primary w-100">Diagnose</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--    {% if form.ai_prediction.value %}-->
+<!--    <div class="alert alert-info mt-4">-->
+<!--        <h5>AI Prediction:</h5>-->
+<!--        <p><strong>{{ form.ai_prediction.value }}</strong></p>-->
+<!--    </div>-->
+<!--    {% endif %}-->
+
+<!--</div>-->
+
+
+
+edit diagnosis
+
+
+
+<!--<div class="container mt-4">-->
+<!--    <h2 class="mb-3">Doctor Diagnosis</h2>-->
+
+<!--    <form method="POST" class="card p-4 shadow-sm">-->
+<!--        {% csrf_token %}-->
+
+<!--        <div class="row">-->
+<!--            &lt;!&ndash; Other fields (Patient, Gender, Age, etc.) &ndash;&gt;-->
+<!--            <div class="col-md-12 mt-3">-->
+<!--    <label for="id_diagnosis_detail" class="form-label">Doctor's Diagnosis</label>-->
+<!--    <textarea name="diagnosis_detail" id="id_diagnosis_detail" class="form-control">{{ diagnosis.diagnosis_detail }}</textarea>-->
+<!--</div>-->
+
+<!--<div class="col-md-12 mt-3">-->
+<!--    <label for="id_tests_ordered" class="form-label">Tests Ordered</label>-->
+<!--    <textarea name="tests_ordered" id="id_tests_ordered" class="form-control">{{ diagnosis.tests_ordered }}</textarea>-->
+<!--</div>-->
+
+<!--            &lt;!&ndash; AI Prediction &ndash;&gt;-->
+<!--            <div class="col-md-12 mt-3">-->
+<!--                <label for="id_ai_prediction" class="form-label">AI Predicted Disease</label>-->
+<!--                <input type="text" id="id_ai_prediction" class="form-control" value="{{ diagnosis.ai_prediction }}" disabled />-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        <div class="mt-4">-->
+<!--            <button type="submit" class="btn btn-primary w-100">Save Diagnosis</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--    {% if diagnosis.ai_prediction %}-->
+<!--    <div class="alert alert-info mt-4">-->
+<!--        <h5>AI Prediction:</h5>-->
+<!--        <p><strong>{{ diagnosis.ai_prediction }}</strong></p>-->
+<!--    </div>-->
+<!--    {% endif %}-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends '../base.html' %}
+{% block content %}
+
+
+<div class="container mt-4">
+    <h2 class="mb-3">Doctor Diagnosis</h2>
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="id_patient" class="form-label">Patient</label>
+                {{ form.patient }}
+            </div>
+
+            <div class="col-md-6">
+                <label for="id_gender" class="form-label">Gender</label>
+                {{ form.gender }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_age" class="form-label">Age</label>
+                {{ form.age }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>
+                {{ form.blood_pressure }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_cholesterol_level" class="form-label">Cholesterol Level</label>
+                {{ form.cholesterol_level }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_symptoms" class="form-label">Symptoms</label>
+                {{ form.symptoms }}
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <label class="form-label">Do you have any of these symptoms?</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        {{ form.fever }}
+                        <label class="form-check-label" for="id_fever">Fever</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.cough }}
+                        <label class="form-check-label" for="id_cough">Cough</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.fatigue }}
+                        <label class="form-check-label" for="id_fatigue">Fatigue</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.difficulty_breathing }}
+                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Diagnose</button>
+        </div>
+    </form>
+
+    {% if form.ai_prediction.value %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ form.ai_prediction.value }}</strong></p>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends '../base.html' %}
+{% block content %}
+
+
+<div class="container mt-4">
+    <h2 class="mb-3">Doctor Diagnosis</h2>
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6 mt-3">
+            <label for="id_patient" class="form-label">Patient</label>
+            {{ form.patient }}
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="id_gender" class="form-label">Gender</label>
+            {{ form.gender }}
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="id_age" class="form-label">Age</label>
+            {{ form.age }}
+        </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>
+                {{ form.blood_pressure }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_cholesterol_level" class="form-label">Cholesterol Level</label>
+                {{ form.cholesterol_level }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_symptoms" class="form-label">Symptoms</label>
+                {{ form.symptoms }}
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <label class="form-label">Do you have any of these symptoms?</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        {{ form.fever }}
+                        <label class="form-check-label" for="id_fever">Fever</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.cough }}
+                        <label class="form-check-label" for="id_cough">Cough</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.fatigue }}
+                        <label class="form-check-label" for="id_fatigue">Fatigue</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.difficulty_breathing }}
+                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Diagnose</button>
+        </div>
+    </form>
+
+    {% if form.ai_prediction.value %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ form.ai_prediction.value }}</strong></p>
+    </div>
+    {% endif %}
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const patientSelect = document.getElementById("id_patient");
+
+        patientSelect.addEventListener("change", function () {
+            const patientId = this.value;
+            if (patientId) {
+                fetch(`/doctor/get-patient-info/?patient_id=${patientId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.error) {
+                            document.getElementById("id_gender").value = data.gender;
+                            document.getElementById("id_age").value = data.age;
+                        } else {
+                            document.getElementById("id_gender").value = '';
+                            document.getElementById("id_age").value = '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% extends '../base.html' %}
+{% block content %}
+
+
+<div class="container mt-4">
+    <h2 class="mb-3">Doctor Diagnosis</h2>
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6 mt-3">
+            <label for="id_patient" class="form-label">Patient</label>
+            {{ form.patient }}
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="id_gender" class="form-label">Gender</label>
+            {{ form.gender }}
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="id_age" class="form-label">Age</label>
+            {{ form.age }}
+        </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>
+                {{ form.blood_pressure }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_cholesterol_level" class="form-label">Cholesterol Level</label>
+                {{ form.cholesterol_level }}
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label for="id_symptoms" class="form-label">Symptoms</label>
+                {{ form.symptoms }}
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <label class="form-label">Do you have any of these symptoms?</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        {{ form.fever }}
+                        <label class="form-check-label" for="id_fever">Fever</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.cough }}
+                        <label class="form-check-label" for="id_cough">Cough</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.fatigue }}
+                        <label class="form-check-label" for="id_fatigue">Fatigue</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.difficulty_breathing }}
+                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Diagnose</button>
+        </div>
+    </form>
+
+    {% if form.ai_prediction.value %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ form.ai_prediction.value }}</strong></p>
+    </div>
+    {% endif %}
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const patientSelect = document.getElementById("id_patient");
+
+        patientSelect.addEventListener("change", function () {
+            const patientId = this.value;
+            if (patientId) {
+                fetch(`/doctor/get-patient-info/?patient_id=${patientId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.error) {
+                            document.getElementById("id_gender").value = data.gender;
+                            document.getElementById("id_age").value = data.age;
+                        } else {
+                            document.getElementById("id_gender").value = '';
+                            document.getElementById("id_age").value = '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Doctor Diagnosis</h2>
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label for="id_patient" class="form-label">Patient</label>
+                {{ form.patient }}
+            </div>
+            <div class="col-md-6">
+                <label for="id_gender" class="form-label">Gender</label>
+                {{ form.gender }}
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="id_age" class="form-label">Age</label>
+                {{ form.age }}
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>
+                {{ form.blood_pressure }}
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="id_cholesterol_level" class="form-label">Cholesterol Level</label>
+                {{ form.cholesterol_level }}
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="id_symptoms" class="form-label">Symptoms</label>
+                {{ form.symptoms }}
+            </div>
+            <div class="col-md-12 mt-3">
+                <label class="form-label">Do you have any of these symptoms?</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        {{ form.fever }}
+                        <label class="form-check-label" for="id_fever">Fever</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.cough }}
+                        <label class="form-check-label" for="id_cough">Cough</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.fatigue }}
+                        <label class="form-check-label" for="id_fatigue">Fatigue</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.difficulty_breathing }}
+                        <label class="form-check-label" for="id_difficulty_breathing">Difficulty Breathing</label>
+                    </div>
+                </div>
+            </div>
+            <!-- You can include additional fields as needed -->
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary w-100">Diagnose</button>
+        </div>
+    </form>
+
+    {% if form.ai_prediction.value %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ form.ai_prediction.value }}</strong></p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    const patientSelect = document.getElementById("id_patient");-->
+<!--    const genderField = document.getElementById("id_gender");-->
+<!--    const ageField = document.getElementById("id_age");-->
+
+<!--    // Listen for changes in patient selection-->
+<!--    patientSelect.addEventListener("change", function () {-->
+<!--        const patientId = this.value;-->
+<!--        if (patientId) {-->
+<!--            fetch(`/get-patient-info/?patient_id=${patientId}`)-->
+<!--                .then((response) => response.json())-->
+<!--                .then((data) => {-->
+<!--                    console.log("Received data:", data);  // Debug: view in browser console-->
+<!--                    if (data.gender !== undefined && data.age !== undefined) {-->
+<!--                        genderField.value = data.gender;-->
+<!--                        ageField.value = data.age;-->
+<!--                    } else {-->
+<!--                        console.warn("Patient not found or missing data.");-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch((error) => {-->
+<!--                    console.error("Error fetching patient info:", error);-->
+<!--                });-->
+<!--        }-->
+<!--    });-->
+<!--});-->
+  document.addEventListener("DOMContentLoaded", function () {
+    const patientSelect = document.getElementById("id_patient");
+    const genderInput = document.getElementById("id_gender");
+    const ageInput = document.getElementById("id_age");
+
+    if (patientSelect) {
+        patientSelect.addEventListener("change", function () {
+            const patientId = this.value;
+
+            if (patientId) {
+                fetch(`/doctor/get-patient-info/?patient_id=${patientId}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.gender !== undefined) {
+                            genderInput.value = data.gender;
+                        }
+                        if (data.age !== undefined) {
+                            ageInput.value = data.age;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching patient info:", error);
+                    });
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

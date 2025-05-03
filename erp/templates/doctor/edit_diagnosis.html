@@ -1,0 +1,131 @@
+{% extends "../base.html" %}
+{% block extra_css %}
+<style>
+    /* MAIN FORM CONTAINER */
+    .lab-test-form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* FORM TITLE */
+    .form-title {
+        margin-bottom: 2.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* FORM ROWS - PERFECTLY ALIGNED */
+    .form-group {
+        margin-bottom: 1.8rem;
+    }
+
+    /* LABELS - PURE BLACK WITH PROPER SPACING */
+    .form-label {
+        color: #000000;
+        font-size: 1rem;
+    }
+
+    /* INPUT FIELDS - CONSISTENT STYLING */
+    .form-control {
+        width: 100%;
+        padding: 0.85rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+    }
+
+    /* SUBMIT BUTTON */
+    .submit-btn {
+        width: 100%;
+        padding: 0.85rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 2rem;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #2980b9;
+    }
+
+    /* ERROR MESSAGES */
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+
+    /* MESSAGE STYLING */
+    .messages {
+        margin-bottom: 1rem;
+    }
+    .messages .success {
+        color: #2ecc71;
+    }
+    .messages .error {
+        color: #e74c3c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!--<div class="container mt-4">-->
+  <div class="lab-test-form mt-2 ms-2">
+    <h3 class="form-title mb-3">Doctor Diagnosis</h3>
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+       {% for field in form %}
+          <div class="form-group" style="clear: both;">
+            {% if field.name != "ai_prediction" %}  {# Exclude AI Prediction field #}
+                <!--<div class="mb-3">-->
+                     <label class="form-label" style="color: #000000;" for="{{ field.id_for_label }}"><b>{{ field.label }}</b>
+                     </label>
+                  <!--{{ field.label_tag }}-->
+                    <div>{{ field }}</div>
+
+                  <!-- Non-field errors -->
+                    {% if form.non_field_errors %}
+                        <div class="error-message">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <!--{% if field.errors %}
+                        <div class="text-danger">{{ field.errors }}</div>
+                    {% endif %}-->
+                </div>
+            {% endif %}
+        {% endfor %}
+
+       <!-- <div class="mt-4">-->
+          <div class="form-group" style="margin-top: 2rem; clear: both;">
+            <button type="submit" class="btn btn-primary w-100">Save Diagnosis</button>
+        </div>
+    </form>
+
+    {% if diagnosis.ai_prediction %}
+    <div class="alert alert-info mt-4">
+        <h5>AI Prediction:</h5>
+        <p><strong>{{ diagnosis.ai_prediction }}</strong></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

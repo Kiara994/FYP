@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% load static %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<title>
+{% block title %}
+Home-Hospitex ERP
+{% endblock title %}
+</title>
+
+</head>
+<body>
+{% block content %}
+<div class="container ">
+<!-- Slider Area -->
+<section class="slider">
+    <div class="hero-slider">
+        <!-- Start Single Slider -->
+        <div class="single-slider" style="background-image: url('{% static "images/slider2.jpg" %}'); background-size: cover; background-position: center;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="text">
+                            <h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+                            <p style="text-align: justify;">At Hospitex ERP, we are dedicated to enhancing healthcare services with innovative solutions. Our platform streamlines hospital workflows, making patient care more efficient and secure. Whether you're scheduling an appointment or managing patient data, Hospitex ensures that healthcare professionals can focus on what truly matters – providing the best care for patients. Join us in transforming healthcare for a healthier tomorrow.</p>
+                            <div class="button">
+                                <a href="{% url 'appointment:schedule_appointment_patient' %}" class="btn">Get Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slider -->
+        <!-- Start Single Slider -->
+        <div class="single-slider" style="background-image: url('{% static "images/slider.jpg" %}'); background-size: cover; background-position: center;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="text">
+                            <h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+                            <p style="text-align: justify;">At Hospitex ERP, we are committed to revolutionizing healthcare management. Our platform offers seamless appointment scheduling, patient data management, and real-time communication tools for healthcare professionals. With Hospitex, hospitals and clinics can deliver better patient outcomes through efficient workflows, secure data, and personalized care. Trust us to help you manage healthcare with ease and precision.</p>
+                            <div class="button">
+                                <a href="{% url 'about' %}" class="btn primary">About Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- End Single Slider -->
+</section>
+<!--/ End Slider Area -->
+
+<!-- Start Schedule Area -->
+<section class="schedule" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="schedule-inner">
+            <div class="row justify-content-center">
+                <!-- single-schedule -->
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="single-schedule last">
+                        <div class="inner">
+                            <div class="icon">
+                                <i class="icofont-ui-clock"></i>
+                            </div>
+                            <div class="single-content">
+                                <h4>Opening Hours</h4>
+                                <ul class="time-sidual">
+                                    <li class="day">Monday - Friday <span>8.00-20.00</span></li>
+                                    <li class="day">Saturday <span>9.00-18.30</span></li>
+                                    <li class="day">Monday - Thursday <span>9.00-15.00</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End single-schedule -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Schedule Area -->
+
+<!-- Start Features -->
+<section class="Feautes section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>We Are Always Ready to Help You & Your Family</h2>
+                    <img src="{% static 'images/section-img.png' %}" alt="#">
+                    <p style="text-align: justify;">Hospitex ERP offers modern healthcare management features that simplify patient care, streamline diagnostics, and enhance treatment efficiency for hospitals and clinics.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Book Appointment -->
+            <div class="col-lg-4 col-12">
+                <div class="single-features">
+                    <div class="signle-icon">
+                        <i class="icofont icofont-ui-calendar"></i>
+                    </div>
+                    <h3>Book Appointment</h3>
+                    <p style="text-align: justify;">With Hospitex ERP, patients can schedule appointments easily. Staff can manage slots, assign doctors, and reduce waiting times with a seamless, user-friendly interface.</p>
+                </div>
+            </div>
+
+            <!-- Lab Test Management -->
+            <div class="col-lg-4 col-12">
+                <div class="single-features">
+                    <div class="signle-icon">
+                        <i class="icofont icofont-laboratory"></i>
+                    </div>
+                    <h3>Lab Test Management</h3>
+                    <p style="text-align: justify;">Hospitex ERP helps technicians manage lab test requests, track samples, and generate automated reports—ensuring timely and error-free diagnostics.</p>
+                </div>
+            </div>
+
+            <!-- Medical Treatment -->
+            <div class="col-lg-4 col-12">
+                <div class="single-features last">
+                    <div class="signle-icon">
+                        <i class="icofont icofont-stethoscope-alt"></i>
+                    </div>
+                    <h3>Medical Treatment</h3>
+                    <p style="text-align: justify;">Doctors can access patient history, update treatment records, and collaborate with departments, all from a centralized and secure system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Features -->
+
+<!-- Start Why choose -->
+<section class="why-choose section custom-why-choose">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>We Offer Different Services To Improve Your Health</h2>
+                    <img src="{% static 'images/section-img.png' %}" alt="#">
+                    <p style="text-align: justify;">Hospitex ERP offers a wide range of services designed to enhance healthcare operations. From seamless patient management to real-time data analytics, our platform enables healthcare professionals to make informed decisions, streamline workflows, and provide high-quality care. With features like appointment scheduling, medical record tracking, and automated billing, Hospitex ensures a smoother experience for both patients and providers, ultimately improving healthcare outcomes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <!-- Start Choose Left -->
+                <div class="choose-left">
+                    <h3>Who We Are</h3>
+                    <p style="text-align: justify;">At Hospitex ERP, we are dedicated to transforming healthcare management by providing cutting-edge technology that streamlines hospital workflows, enhances patient care, and secures medical data. Our platform integrates various hospital functions, ensuring seamless operations across departments.</p>
+                    <p>With a focus on efficiency and reliability, Hospitex ERP supports healthcare professionals in delivering quality care, improving patient satisfaction, and fostering innovation in the healthcare industry.</p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                          <ul class="list">
+                              <li><i class="fa fa-caret-right"></i> Seamless patient management for efficient care. </li>
+                              <li><i class="fa fa-caret-right"></i> Real-time data analytics for informed decision-making.</li>
+                              <li><i class="fa fa-caret-right"></i> Appointment scheduling and medical record tracking.</li>
+                          </ul>
+                      </div>
+                      <div class="col-lg-6">
+                          <ul class="list">
+                              <li><i class="fa fa-caret-right"></i> Integrated hospital functions for streamlined workflows. </li>
+                              <li><i class="fa fa-caret-right"></i> Secure and reliable medical data management.</li>
+                              <li><i class="fa fa-caret-right"></i> Improved patient satisfaction through efficient operations.</li>
+                          </ul>
+                      </div>
+                    </div>
+                </div>
+                <!-- End Choose Left -->
+            </div>
+            <div class="col-lg-6 col-12">
+                <!-- Start Choose Rights -->
+                <div class="choose-right">
+                    <div class="img-box">
+                        <img src="{% static 'images/contact-img.png' %}" alt="Hospitex ERP" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                <!-- End Choose Rights -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Why choose -->
+
+<!-- Start Call to action -->
+<!--<section class="call-action overlay" data-stellar-background-ratio="0.5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="content">
+                    <h2>Do you need Emergency Medical Care? Call @ 1234 56789</h2>
+                    <div class="button">
+                        <a href="#" class="btn">Contact Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!--/ End Call to action -->
+
+		<!-- Start Services Section -->
+<section class="services section">
+    <div class="container">
+        <div class="row justify-content-center ">
+            <div class="col-lg-6 text-center">
+                <span class="text-primary d-block" style="font-weight: 600;"><i class="icofont-ui-calendar"></i> &nbsp;What We Offer</span>
+                <h2 class=" text-black">Our Core Healthcare Solutions</h2>
+				        <img src="{% static 'images/section-img.png' %}" alt="#">
+                <p class="text-muted">Explore the core functionalities of Hospitex ERP that streamline hospital management and improve patient care.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- General Treatment -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="single-service text-center p-4 shadow-sm rounded">
+                    <i class="icofont-prescription text-primary mb-3" style="font-size: 36px;"></i>
+                    <h4 class="mb-3 text-black"><a href="service-details.html" class="text-black text-decoration-none">General Treatment</a></h4>
+                    <p class="text-muted text-justify">Hospitex ERP simplifies the general treatment process by offering doctors and hospital staff a centralized platform to access patient records, update treatment plans, and coordinate with departments in real time. It ensures faster, paperless workflows and improves the overall quality of care delivered to patients.</p>
+                </div>
+            </div>
+
+            <!-- Patient Appointment Scheduling -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="single-service text-center p-4 shadow-sm rounded">
+                    <i class="icofont-ui-calendar text-primary mb-3" style="font-size: 36px;"></i>
+                    <h4 class="mb-3 text-black"><a href="service-details.html" class="text-black text-decoration-none">Patient Appointment Scheduling</a></h4>
+                    <p class="text-muted text-justify">Hospitex ERP makes patient appointment scheduling effortless and efficient. With an intuitive interface, staff can quickly assign time slots, manage doctor availability, and send automated reminders to patients. This not only reduces waiting times and appointment clashes but also enhances patient satisfaction and administrative productivity.</p>
+                </div>
+            </div>
+
+            <!-- Diagnosis -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="single-service text-center p-4 shadow-sm rounded">
+                    <i class="icofont-heart-beat text-primary mb-3" style="font-size: 36px;"></i>
+                    <h4 class="mb-3 text-black"><a href="service-details.html" class="text-black text-decoration-none">Diagnosis</a></h4>
+                    <p class="text-muted text-justify">With AI integration, Hospitex ERP supports smart diagnosis by analyzing patient symptoms, medical history, and lab reports. It assists healthcare providers in detecting conditions early, reducing diagnostic errors, and enhancing clinical decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Services Section -->
+</div>
+{% endblock content %}
+</body>
+</html>
+
+

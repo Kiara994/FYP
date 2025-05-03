@@ -1,0 +1,209 @@
+{% extends '../base.html' %}
+
+{% block extra_css %}
+<style>
+    /* MAIN FORM CONTAINER */
+    .lab-test-form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* FORM TITLE */
+    .form-title {
+        margin-bottom: 2.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* FORM ROWS - PERFECTLY ALIGNED */
+    .form-group {
+        margin-bottom: 1.8rem; /* Consistent spacing */
+    }
+
+    /* LABELS - PURE BLACK WITH PROPER SPACING */
+    .form-label {
+
+        color: #000000;
+        font-size: 1rem;
+    }
+
+    /* INPUT FIELDS - CONSISTENT STYLING */
+    .form-control {
+        width: 100%;
+        padding: 0.85rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+    }
+
+
+    /* SUBMIT BUTTON */
+    .submit-btn {
+        width: 100%;
+        padding: 0.85rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 2rem;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #2980b9;
+    }
+
+    /* ERROR MESSAGES */
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lab-test-form mt-2 ms-2">
+    <h1 class="form-title">Doctor Registration Form</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Name Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.name.id_for_label }}">
+            <b>Name</b>
+            </label>
+            <div>{{ form.name }}</div>
+            {% if form.name.errors %}
+                <span class="error-message">{{ form.name.errors }}</span>
+            {% endif %}
+        </div>
+
+        <!-- Contact Info Field -->
+     <div class="form-group mb-3" style="clear: both;">
+          <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.contact_info.id_for_label }}">
+              <b>Contact Info</b>
+          </label>
+          <div>{{ form.contact_info }}</div>
+          {% if form.contact_info.errors %}
+              <span class="error-message">{{ form.contact_info.errors }}</span>
+          {% endif %}
+      </div>
+
+
+        <!-- Gender Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.gender_for_label }}">
+                <b>Gender</b>
+            </label>
+          <div>{{ form.gender }}</div>
+            {% if form.gender.errors %}
+                <span class="error-message">{{ form.gender.errors }}</span>
+            {% endif %}
+        </div>
+
+        <!-- License Number Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.license_number_for_label }}">
+                <b>License Number</b>
+            </label>
+          <div>{{ form.license_number }}</div>
+            {% if form.license_number.errors %}
+                <span class="error-message">{{ form.license_number.errors }}</span>
+            {% endif %}
+        </div>
+
+
+        <!-- Speciality Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.speciality_for_label }}">
+                <b>Speciality</b>
+            </label>
+          <div>{{ form.speciality }}</div>
+            {% if form.speciality.errors %}
+                <span class="error-message">{{ form.speciality.errors }}</span>
+            {% endif %}
+        </div>
+
+
+        <!-- Department Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.department_for_label }}">
+               <b>Department</b>
+            </label>
+          <div>{{ form.department }}</div>
+            {% if form.department.errors %}
+                <span class="error-message">{{ form.department.errors }}</span>
+            {% endif %}
+        </div>
+
+
+        <!-- Joining Date Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.joining_date_for_label }}">
+                <b>Joining Date</b>
+            </label>
+          <div>{{ form.joining_date }}</div>
+            {% if form.joining_date.errors %}
+                <span class="error-message">{{ form.joining_date.errors }}</span>
+            {% endif %}
+        </div>
+
+      <!-- Availability Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.availability_for_label }}">
+                <b>Availability</b>
+            </label>
+          <div>{{ form.availability }}</div>
+            {% if form.availability.errors %}
+                <span class="error-message">{{ form.availability.errors }}</span>
+            {% endif %}
+        </div>
+
+      <!-- Shift Timing Field -->
+        <div class="form-group mb-3" style="clear: both;">
+            <label class="form-label" style="color: #000000; margin-right: 10px;" for="{{ form.shift_timings_for_label }}">
+               <b>Shift Timing</b>
+            </label>
+          <div>{{ form.shift_timings }}</div>
+            {% if form.shift_timings.errors %}
+                <span class="error-message">{{ form.shift_timings.errors }}</span>
+            {% endif %}
+        </div>
+
+
+        <div class="form-group" style="margin-top: 2rem; clear: both;">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+
+    </form>
+</div>
+
+<script>
+// Ensure all form controls have proper styling
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form-control class to all inputs, selects, and textareas
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach(element => {
+        if (element.type !== 'submit') {
+            element.classList.add('form-control');
+        }
+    });
+});
+</script>
+{% endblock %}
