@@ -56,34 +56,37 @@ class PrescriptionForm(forms.ModelForm):
 
 #
 
-class DiagnosisForm(forms.ModelForm):
-    # diagnosis_date=forms.DateField(
-    #     widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})  # Adds a date picker
-    # )
-    patient = forms.ModelChoiceField(
-        queryset=Patient.objects.all(),
-        widget=PatientSelect2Widget(
-            # attrs={'data-minimum-input-lengt-placeholder': 'Search by Patient ID or Name', 'class': 'form-control'}
-            attrs={
 
-                'data-placeholder': 'Search by Patient ID or Name',
-                'data-minimum-input-length': 1,
-                'class': 'form-control'
-            }
-        )
-    )
-    class Meta:
-        model=Diagnosis
-        # fields="__all__"
-        # exclude=["doctor",'diagnosis_date']
-        fields = ["patient", "symptoms", "gender", "age", "blood_pressure", "cholesterol_level", "fever", "cough",
-                  "fatigue", "difficulty_breathing","tests_ordered","diagnosis_detail"]
-        exclude = ["doctor", "diagnosis_date", "ai_prediction"]  # AI prediction should be generated automatically
-        widgets = {
-            "diagnosis_detail": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
-            "tests_ordered": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
-
-        }
+#               NORMAL
+#
+# class DiagnosisForm(forms.ModelForm):
+#     # diagnosis_date=forms.DateField(
+#     #     widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})  # Adds a date picker
+#     # )
+#     patient = forms.ModelChoiceField(
+#         queryset=Patient.objects.all(),
+#         widget=PatientSelect2Widget(
+#             # attrs={'data-minimum-input-lengt-placeholder': 'Search by Patient ID or Name', 'class': 'form-control'}
+#             attrs={
+#
+#                 'data-placeholder': 'Search by Patient ID or Name',
+#                 'data-minimum-input-length': 1,
+#                 'class': 'form-control'
+#             }
+#         )
+#     )
+#     class Meta:
+#         model=Diagnosis
+#         # fields="__all__"
+#         # exclude=["doctor",'diagnosis_date']
+#         fields = ["patient", "symptoms", "gender", "age", "blood_pressure", "cholesterol_level", "fever", "cough",
+#                   "fatigue", "difficulty_breathing","tests_ordered","diagnosis_detail"]
+#         exclude = ["doctor", "diagnosis_date", "ai_prediction"]  # AI prediction should be generated automatically
+#         widgets = {
+#             "diagnosis_detail": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+#             "tests_ordered": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+#
+#         }
 
 #     ai_prediction = forms.CharField(required=False, disabled=True)
 #
@@ -127,3 +130,24 @@ class DiagnosisForm(forms.ModelForm):
 #             "tests_ordered": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
 #         }
 #     ai_prediction = forms.CharField(required=False, disabled=True)
+
+
+
+###########     autofill
+
+
+#autofill   age and gender
+class DiagnosisForm(forms.ModelForm):
+    class Meta:
+        model = Diagnosis
+        fields = ["patient", "symptoms", "gender", "age", "blood_pressure", "cholesterol_level", "fever", "cough",
+                  "fatigue", "difficulty_breathing", "tests_ordered", "diagnosis_detail"]
+        exclude = [ "ai_prediction"]  # AI prediction will be auto-generated
+        widgets = {
+            "patient": forms.Select(attrs={"class": "form-select", "id": "id_patient"}),
+            "gender": forms.TextInput(attrs={"readonly": "readonly", "class": "form-control", "id": "id_gender"}),
+            "age": forms.NumberInput(attrs={"readonly": "readonly", "class": "form-control", "id": "id_age"}),
+            "diagnosis_detail": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+            "tests_ordered": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+        }
+    ai_prediction = forms.CharField(required=False, disabled=True)

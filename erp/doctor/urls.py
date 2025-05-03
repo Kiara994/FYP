@@ -18,8 +18,8 @@ urlpatterns = [
     # path("ai_predict/", views.ai_predict_view, name="ai_predict"),  # AI prediction API
     path("diagnosis/edit/<int:diagnosis_id>/", views.edit_diagnosis, name="edit_diagnosis"),
 
-
-   path('get-patient-info/', views.get_patient_info, name='get_patient_info'),
+    # autofill   age and gender
+    path('get-patient-info/', views.get_patient_info, name='get_patient_info'),
 
 
 

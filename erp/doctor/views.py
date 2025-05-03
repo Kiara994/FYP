@@ -285,48 +285,104 @@ def predict_disease(input_data):
 
 
 
-
+######               NORMAL
 ################### ai disease name saved
+# def doctor_diagnosis(request, doctor_id):
+#     if not hasattr(request.user, 'doctor_profile'):
+#         return redirect("account_login")  # Restrict to doctors only
+#
+#     form = DiagnosisForm(request.POST or None)
+#
+#     if request.method == "POST" and form.is_valid():
+#         diagnosis = form.save(commit=False)  # Don't save yet
+#
+#         diagnosis.doctor = request.user.doctor_profile  # Assign the doctor
+#
+#         # Get user input
+#         input_data = {
+#             "Gender": form.cleaned_data["gender"],
+#             "Age": form.cleaned_data["age"],
+#             "Blood Pressure": form.cleaned_data["blood_pressure"],
+#             "Cholesterol Level": form.cleaned_data["cholesterol_level"],
+#             "Fever": form.cleaned_data["fever"],
+#             "Cough": form.cleaned_data["cough"],
+#             "Fatigue": form.cleaned_data["fatigue"],
+#             "Difficulty Breathing": form.cleaned_data["difficulty_breathing"],
+#         }
+#
+#         # AI Diagnosis Prediction
+#         ai_disease = predict_disease(input_data)  # ✅ Fix: Prediction returns disease name
+#
+#         diagnosis.ai_prediction = ai_disease  # ✅ Save actual disease name, not a number
+#         diagnosis.save()  # Now save to database
+#
+#         return redirect("doctor:edit_diagnosis", diagnosis_id=diagnosis.id)  # Redirect to editing page
+#
+#     return render(request, "doctor/diagnosis.html", {"form": form})
+#
+#
+#
+
+
+
+
+
+
+
+
+
+#autofill   age and gender
+
+
 def doctor_diagnosis(request, doctor_id):
     if not hasattr(request.user, 'doctor_profile'):
+        print("User is not a doctor")
         return redirect("account_login")  # Restrict to doctors only
 
     form = DiagnosisForm(request.POST or None)
 
-    if request.method == "POST" and form.is_valid():
-        diagnosis = form.save(commit=False)  # Don't save yet
+    if request.method == "POST":
+        print("Received POST request")
 
-        diagnosis.doctor = request.user.doctor_profile  # Assign the doctor
+        if form.is_valid():
+            print("Form is valid")
 
-        # Get user input
-        input_data = {
-            "Gender": form.cleaned_data["gender"],
-            "Age": form.cleaned_data["age"],
-            "Blood Pressure": form.cleaned_data["blood_pressure"],
-            "Cholesterol Level": form.cleaned_data["cholesterol_level"],
-            "Fever": form.cleaned_data["fever"],
-            "Cough": form.cleaned_data["cough"],
-            "Fatigue": form.cleaned_data["fatigue"],
-            "Difficulty Breathing": form.cleaned_data["difficulty_breathing"],
-        }
+            diagnosis = form.save(commit=False)  # Don't save yet
+            diagnosis.doctor = request.user.doctor_profile  # Assign the doctor
 
-        # AI Diagnosis Prediction
-        ai_disease = predict_disease(input_data)  # ✅ Fix: Prediction returns disease name
+            # Get user input for AI model
+            input_data = {
+                "Gender": form.cleaned_data.get("gender"),
+                "Age": form.cleaned_data.get("age"),
+                "Blood Pressure": form.cleaned_data.get("blood_pressure"),
+                "Cholesterol Level": form.cleaned_data.get("cholesterol_level"),
+                "Fever": form.cleaned_data.get("fever"),
+                "Cough": form.cleaned_data.get("cough"),
+                "Fatigue": form.cleaned_data.get("fatigue"),
+                "Difficulty Breathing": form.cleaned_data.get("difficulty_breathing"),
+            }
 
-        diagnosis.ai_prediction = ai_disease  # ✅ Save actual disease name, not a number
-        diagnosis.save()  # Now save to database
+            print("Input data for prediction:", input_data)
 
-        return redirect("doctor:edit_diagnosis", diagnosis_id=diagnosis.id)  # Redirect to editing page
+            try:
+                ai_disease = predict_disease(input_data)
+                print("AI prediction result:", ai_disease)
+                diagnosis.ai_prediction = ai_disease
+            except Exception as e:
+                print("Prediction error:", e)
+                diagnosis.ai_prediction = "Prediction Failed"
+
+            diagnosis.save()
+            print("Diagnosis saved with ID:", diagnosis.id)
+
+            # Redirect to the edit page
+            return redirect("doctor:edit_diagnosis", diagnosis_id=diagnosis.id)
+
+        else:
+            print("Form is NOT valid")
+            print(form.errors)
 
     return render(request, "doctor/diagnosis.html", {"form": form})
-
-
-
-
-
-
-
-
 
 
 
@@ -358,9 +414,8 @@ def edit_diagnosis(request, diagnosis_id):
 
 
 
+#         autofill age and gender
 
-
-###########################      auto age gendefr       ##########################
 def get_patient_info(request):
     patient_id = request.GET.get("patient_id")
     try:
