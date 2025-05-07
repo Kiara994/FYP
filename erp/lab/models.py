@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.timezone import now
 from phonenumber_field.modelfields import PhoneNumberField
+from datetime import date
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class LabTest(models.Model):
@@ -19,6 +21,11 @@ class LabTest(models.Model):
     ], default='pending')
     results = models.TextField(blank=True, null=True)
     report_generated_date = models.DateTimeField(blank=True, null=True)
+
+    def clean(self):
+        if self.test_date.date() < date.today():
+            raise ValidationError("You cannot select a past date for an appointment.")
+
 
     def save(self, *args, **kwargs):
         if self.status == 'pending' and self.test_date and self.test_date < now():

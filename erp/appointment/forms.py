@@ -124,7 +124,7 @@ class RescheduleAppointmentForm(forms.ModelForm):
     )
     class Meta:
         model=Appointment
-        fields=['appointment_type','appointment_date']
+        fields=['appointment_type','appointment_date','appointment_time']
 
 
 

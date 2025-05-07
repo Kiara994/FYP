@@ -148,7 +148,8 @@ def create_lab_test(request):
                 user_email=new_test.patient.user.email,
                 name=new_test.patient.name,
                 test_name=new_test.test_name,
-                test_date=new_test.test_date
+                test_date=new_test.test_date,
+                test_time=new_test.test_time
             )
             messages.success(request, "Lab test created successfully.")
             return redirect("doctor:staff_dashboard")
@@ -195,13 +196,14 @@ def update_labtest_result(request, labtest_id):
 
 
 
-def send_labtest_email(user_email, name, test_name, test_date):
+def send_labtest_email(user_email, name, test_name, test_date,test_time):
     subject = f"Lab Test Scheduled: {test_name}"
 
     context = {
         'name': name,
         'test_name': test_name,
-        'test_date': test_date
+        'test_date': test_date,
+        'test_time' :test_time,
     }
 
     html_message = render_to_string("emails/labtest_notification.html", context)
