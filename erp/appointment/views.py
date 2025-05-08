@@ -19,18 +19,18 @@ from datetime import datetime, timedelta
 # def patient_appointment_scheduling(request):
 #     """View for scheduling a patient's appointment."""
 #
-#     # ✅ Ensure the user has a patient profile
+#     #  Ensure the user has a patient profile
 #     if not hasattr(request.user, "patient_profile"):
 #         messages.error(request, "You must be registered as a patient to schedule an appointment.")
 #         return redirect("account_login")
 #
-#     form = PatientAppointmentForm(request.POST or None)  # ✅ Load form
+#     form = PatientAppointmentForm(request.POST or None)  #  Load form
 #
 #     if request.method == 'POST' and form.is_valid():
-#         appointment = form.save(commit=False)  # ✅ Do not save yet
-#         appointment.patient = request.user.patient_profile  # ✅ Assign the patient
+#         appointment = form.save(commit=False)  #  Do not save yet
+#         appointment.patient = request.user.patient_profile  #  Assign the patient
 #
-#         # ✅ Check if the doctor is already booked at this time
+#         #  Check if the doctor is already booked at this time
 #         if Appointment.objects.filter(
 #             doctor=appointment.doctor,
 #             appointment_date=appointment.appointment_date,
@@ -39,7 +39,7 @@ from datetime import datetime, timedelta
 #             messages.error(request, "The doctor is already booked at this time. Please choose another time.")
 #             return render(request, "appointment/appointment_scheduling.html", {'form': form})
 #
-#         # ✅ Check if the patient already has an appointment at the same time
+#         #  Check if the patient already has an appointment at the same time
 #         if Appointment.objects.filter(
 #             patient=appointment.patient,
 #             appointment_date=appointment.appointment_date,
@@ -48,7 +48,7 @@ from datetime import datetime, timedelta
 #             messages.error(request, "You already have an appointment at this time.")
 #             return render(request, "appointment/appointment_scheduling.html", {'form': form})
 #
-#         # ✅ Save only after all checks pass
+#         # Save only after all checks pass
 #         appointment.save()
 #
 #         send_appointment_email(
@@ -78,22 +78,22 @@ from datetime import datetime, timedelta
 def patient_appointment_scheduling(request):
     """View for scheduling a patient's appointment."""
 
-    # ✅ Ensure the user has a patient profile
+    # Ensure the user has a patient profile
     if not hasattr(request.user, "patient_profile"):
         messages.error(request, "You must be registered as a patient to schedule an appointment.")
         return redirect("account_login")
 
-    form = PatientAppointmentForm(request.POST or None)  # ✅ Load form
+    form = PatientAppointmentForm(request.POST or None)  #  Load form
 
     if request.method == 'POST' and form.is_valid():
-        appointment = form.save(commit=False)  # ✅ Do not save yet
-        appointment.patient = request.user.patient_profile  # ✅ Assign the patient
+        appointment = form.save(commit=False)  #  Do not save yet
+        appointment.patient = request.user.patient_profile  #  Assign the patient
 
         # Combine date and time into datetime objects
         start_dt = datetime.combine(appointment.appointment_date, appointment.appointment_time)
         end_dt = start_dt + timedelta(minutes=30)
 
-        # ✅ Check if the doctor has any overlapping appointments
+        #  Check if the doctor has any overlapping appointments
         doctor_appointments = Appointment.objects.filter(
             doctor=appointment.doctor,
             appointment_date=appointment.appointment_date
@@ -106,7 +106,7 @@ def patient_appointment_scheduling(request):
                 messages.error(request, "The doctor is already booked during this time. Please choose another time.")
                 return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-        # ✅ Check if the patient has any overlapping appointments
+        #  Check if the patient has any overlapping appointments
         patient_appointments = Appointment.objects.filter(
             patient=appointment.patient,
             appointment_date=appointment.appointment_date
@@ -119,10 +119,10 @@ def patient_appointment_scheduling(request):
                 messages.error(request, "You already have an appointment during this time.")
                 return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-        # ✅ Save the appointment if all checks pass
+        #  Save the appointment if all checks pass
         appointment.save()
 
-        # ✅ Send confirmation emails
+        #  Send confirmation emails
         send_appointment_email(
             user_email=appointment.patient.user.email,
             name=appointment.patient.name,
@@ -148,7 +148,7 @@ def patient_appointment_scheduling(request):
 def doctor_appointment_scheduling(request):
     """View for a doctor to schedule an appointment for a patient."""
 
-    # ✅ Ensure the user is a doctor
+    #  Ensure the user is a doctor
     if not hasattr(request.user, "doctor_profile"):
         messages.error(request, "You must be registered as a doctor to schedule an appointment.")
         return redirect("account_login")
@@ -182,7 +182,7 @@ def doctor_appointment_scheduling(request):
         start_dt = datetime.combine(appointment.appointment_date, appointment.appointment_time)
         end_dt = start_dt + timedelta(minutes=30)
 
-        # ✅ Check if the doctor has any overlapping appointments
+        #  Check if the doctor has any overlapping appointments
         doctor_appointments = Appointment.objects.filter(
             doctor=appointment.doctor,
             appointment_date=appointment.appointment_date
@@ -195,7 +195,7 @@ def doctor_appointment_scheduling(request):
                 messages.error(request, "The doctor is already booked during this time. Please choose another time.")
                 return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-        # ✅ Check if the patient has any overlapping appointments
+        #  Check if the patient has any overlapping appointments
         patient_appointments = Appointment.objects.filter(
             patient=appointment.patient,
             appointment_date=appointment.appointment_date
@@ -208,7 +208,7 @@ def doctor_appointment_scheduling(request):
                 messages.error(request, "You already have an appointment during this time.")
                 return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-        # ✅ Save the appointment if all checks pass
+        #  Save the appointment if all checks pass
         appointment.save()
 
         send_appointment_email(
@@ -300,12 +300,12 @@ def delete_appointment_doctor(request,appointment_id):
 def reschedule_appointment_patient(request, appointment_id):
     """Allow a patient to reschedule their own appointment."""
 
-    # ✅ Ensure the user has a patient profile
+    #  Ensure the user has a patient profile
     if not hasattr(request.user, "patient_profile"):
         messages.error(request, "You must be registered as a patient to reschedule an appointment.")
         return redirect("account_login")
 
-    # ✅ Get the patient's appointment
+    #  Get the patient's appointment
     appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient_profile)
 
     if request.method == "POST":
@@ -317,7 +317,7 @@ def reschedule_appointment_patient(request, appointment_id):
             start_dt = datetime.combine(new_appointment.appointment_date, new_appointment.appointment_time)
             end_dt = start_dt + timedelta(minutes=30)
 
-            # ✅ Check if the doctor already has an appointment at the same time
+            #  Check if the doctor already has an appointment at the same time
             # if Appointment.objects.filter(
             #     doctor=new_appointment.doctor,
             #     appointment_date=new_appointment.appointment_date,
@@ -326,7 +326,7 @@ def reschedule_appointment_patient(request, appointment_id):
             #     messages.error(request, "The doctor is already booked at this time. Please choose another time.")
             #     return render(request, "appointment/appointment_scheduling.html", {"form": form, "appointment": appointment})
             # print(new_appointment.patient.name)
-            # # ✅ Check if the patient already has another appointment at the same time
+            # #  Check if the patient already has another appointment at the same time
             # if Appointment.objects.filter(
             #     patient=new_appointment.patient,
             #     appointment_date=new_appointment.appointment_date,
@@ -348,7 +348,7 @@ def reschedule_appointment_patient(request, appointment_id):
                                    "The doctor is already booked during this time. Please choose another time.")
                     return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-            # ✅ Check if the patient has any overlapping appointments
+            #  Check if the patient has any overlapping appointments
             patient_appointments = Appointment.objects.filter(
                 patient=new_appointment.patient,
                 appointment_date=new_appointment.appointment_date
@@ -361,7 +361,7 @@ def reschedule_appointment_patient(request, appointment_id):
                     messages.error(request, "You already have an appointment during this time.")
                     return render(request, "appointment/appointment_scheduling.html", {'form': form})
 
-            # ✅ Save the appointment if all checks pass
+            #  Save the appointment if all checks pass
 
             send_appointment_email(
                 user_email=appointment.patient.user.email,
@@ -376,7 +376,7 @@ def reschedule_appointment_patient(request, appointment_id):
                 appointment_date=f"{appointment.appointment_date} at {appointment.appointment_time}",
                 role="Doctor"
             )
-            new_appointment.save()  # ✅ Save only after passing all checks
+            new_appointment.save()  #  Save only after passing all checks
             messages.success(request, "Appointment rescheduled successfully.")
             return redirect("patient:dashboard")  # Redirect after rescheduling
 

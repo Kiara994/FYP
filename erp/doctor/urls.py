@@ -6,10 +6,10 @@ from django.urls import path
 from erp.doctor import views
 from erp.doctor.views import prescribe_prescription
 
-app_name = "doctor"  # ✅ Add this
+app_name = "doctor"  #  Add this
 
 urlpatterns = [
-    path('dashboard/', views.doctor_dashboard, name="dashboard"),  # ✅ Use just "dashboard"
+    path('dashboard/', views.doctor_dashboard, name="dashboard"),  # Use just "dashboard"
     path('register/', views.doctor_registration, name="register"),
     path("staff_register/", views.staff_registration, name="staff_register"),
     path("staff_dashboard/", views.staff_dashboard, name="staff_dashboard"),

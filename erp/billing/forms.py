@@ -49,7 +49,7 @@ class PaymentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if bill:
-            self.bill = bill  # ✅ Assign bill to self.bill
+            self.bill = bill  #  Assign bill to self.bill
             remaining_amount = bill.amount  # Default to full amount
 
             # If patient has insurance, deduct co-pay
@@ -64,7 +64,7 @@ class PaymentForm(forms.ModelForm):
         """Ensure the amount paid is exactly the remaining balance after insurance."""
         amount_paid = self.cleaned_data.get("amount_paid")
 
-        # ✅ Check if `self.bill` exists before using it
+        #  Check if `self.bill` exists before using it
         if hasattr(self, "bill"):
             remaining_amount = self.bill.amount
 

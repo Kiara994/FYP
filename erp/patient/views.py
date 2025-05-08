@@ -91,7 +91,7 @@ def patient_dashboard(request):
     if not hasattr(request.user, 'patient_profile') or request.user.patient_profile is None:
         return redirect("account_login")  # Redirect if user has no patient profile
 
-    patient = request.user.patient_profile  # ✅ Use `patient_profile`
+    patient = request.user.patient_profile  #  Use `patient_profile`
     appointments = Appointment.objects.filter(patient=patient).order_by("-appointment_date")[:5]
     prescriptions = Prescription.objects.filter(patient=patient).order_by("-prescription_date")[:5]
     lab_tests = LabTest.objects.filter(patient=patient).order_by("-test_date")[:5]
@@ -106,7 +106,7 @@ def patient_dashboard(request):
             test.status = "completed"
             test.save()
 
-        # ✅ Update appointment status based on datetime comparison
+        #  Update appointment status based on datetime comparison
     for appointment in appointments:
         new_status = appointment.current_status()
         if new_status != appointment.status:
@@ -114,7 +114,7 @@ def patient_dashboard(request):
             appointment.save()
 
     context = {
-        "patient": patient,  # ✅ Ensure correct reference in template
+        "patient": patient,  #  Ensure correct reference in template
         "appointments": appointments,
         "prescriptions": prescriptions,
         "lab_tests": lab_tests,
@@ -122,7 +122,7 @@ def patient_dashboard(request):
         "diagnosis": diagnosis,
     }
 
-    return render(request, "patient/patient_dashboard.html", context)  # ✅ Use correct template
+    return render(request, "patient/patient_dashboard.html", context)  #  Use correct template
 
 
 
